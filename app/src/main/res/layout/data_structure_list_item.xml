@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/click_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/data_structure_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignStart="@id/expand_collapse_icon"
+            android:layout_alignLeft="@id/expand_collapse_icon"
+            android:layout_marginEnd="@dimen/gutter"
+            android:layout_marginRight="@dimen/gutter"
+            android:layout_marginBottom="@dimen/gutter"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/expand_collapse_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/data_structure_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/gutter"
+        android:visibility="gone"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
