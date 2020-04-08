@@ -9,7 +9,7 @@ class DataStructureListViewModel(application: Application):AndroidViewModel(appl
     private val _learnDataStructure = MutableLiveData<Event<String?>>()
     var navigateToDataStructure = _learnDataStructure
 
-    fun learnDataStructure(dataStructure:String){
-        _learnDataStructure.value = Event(dataStructure)
+    fun learnDataStructure(dataStructureName:String){
+        _learnDataStructure.value = Event(dataStructureName)
     }
 }

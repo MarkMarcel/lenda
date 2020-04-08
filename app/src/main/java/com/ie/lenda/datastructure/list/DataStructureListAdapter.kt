@@ -1,7 +1,7 @@
 package com.ie.lenda.datastructure.list
 
 import android.animation.ObjectAnimator
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +11,13 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ie.lenda.R
-import com.ie.lenda.util.Event
 
 class DataStructureListAdapter(
     private val dataStructureList:Set<HashMap<String,Any>> = emptySet(),
     private val viewModel:DataStructureListViewModel
 ): RecyclerView.Adapter<DataStructureListAdapter.DataStructureListAdapterViewHolder>() {
+
+    private lateinit var context:Context
 
     class DataStructureListAdapterViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         val dataStructureNameTextView: TextView = itemView.findViewById(R.id.data_structure_group_name)
@@ -30,7 +31,7 @@ class DataStructureListAdapter(
         parent: ViewGroup,
         viewType: Int
     ): DataStructureListAdapterViewHolder {
-        val context = parent.context
+        context = parent.context
         val inflater = LayoutInflater.from(context)
         val dataStructureListItemView = inflater.inflate(R.layout.data_structure_list_item,parent,false)
         return DataStructureListAdapterViewHolder(dataStructureListItemView)
@@ -39,29 +40,20 @@ class DataStructureListAdapter(
     override fun getItemCount(): Int = dataStructureList.size
 
     private fun setupChildren(dataStructureChildListView:RecyclerView, dataStructureChildren:Set<HashMap<String,Any>>){
-            val context = dataStructureChildListView.context
             val adapter = DataStructureListAdapter(dataStructureChildren,viewModel)
             val layoutManager = LinearLayoutManager(context)
             dataStructureChildListView.layoutManager = layoutManager
             dataStructureChildListView.adapter = adapter
     }
 
-    private fun showHideChildren(holder: DataStructureListAdapterViewHolder){
+    private fun showHideChildren(holder: DataStructureListAdapterViewHolder,animation:ObjectAnimator){
             when(holder.dataStructureChildListView.visibility){
                 View.VISIBLE -> {
-                    ObjectAnimator.ofFloat(holder.expandCollapseIcon,View.ROTATION,180f,360f).apply {
-                        duration = 300
-                        repeatMode = ObjectAnimator.REVERSE
-                        start()
-                    }
+                    animation.reverse()
                     holder.dataStructureChildListView.visibility = View.GONE
                 }
                 View.GONE -> {
-                    ObjectAnimator.ofFloat(holder.expandCollapseIcon,View.ROTATION,180f).apply {
-                        duration = 300
-                        repeatMode = ObjectAnimator.REVERSE
-                        start()
-                    }
+                    animation.start()
                     holder.dataStructureChildListView.visibility = View.VISIBLE
                 }
             }
@@ -70,24 +62,28 @@ class DataStructureListAdapter(
     }
 
     private fun handleClicks(dataStructure:HashMap<String,Any>,holder: DataStructureListAdapterViewHolder){
+        val expandCollapseIconRotationAnimation = ObjectAnimator.ofFloat(holder.expandCollapseIcon,View.ROTATION,0f,-180f).apply {
+            duration = 300
+            repeatMode = ObjectAnimator.REVERSE
+        }
         holder.clickArea.setOnClickListener {
-            if(dataStructure.containsKey("dataStructures")){
-                showHideChildren(holder)
-              return@setOnClickListener
+            if(dataStructure.containsKey(context.getString(R.string.ds_children_map_key))){
+                showHideChildren(holder,expandCollapseIconRotationAnimation)
+                return@setOnClickListener
             }
-            viewModel.navigateToDataStructure.value = Event(dataStructure["name"] as String)
+            viewModel.learnDataStructure(dataStructure[context.getString(R.string.ds_name_map_key)] as String)
         }
     }
 
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: DataStructureListAdapterViewHolder, position: Int) {
         dataStructureList.elementAt(position).let {
-            holder.dataStructureNameTextView.text = it["name"] as String
-            if(it.containsKey("dataStructures")) {
+            holder.dataStructureNameTextView.text = it[context.getString(R.string.ds_name_map_key)] as String
+            if(it.containsKey(context.getString(R.string.ds_children_map_key))) {
                 holder.expandCollapseIcon.visibility = View.VISIBLE
                 setupChildren(
                     holder.dataStructureChildListView,
-                    it["dataStructures"] as Set<HashMap<String, Any>>
+                    it[context.getString(R.string.ds_children_map_key)] as Set<HashMap<String, Any>>
                 )
             }
             handleClicks(it,holder)

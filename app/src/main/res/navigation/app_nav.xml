@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.ie.lenda.DataStructureListFragment"
+        android:name="com.ie.lenda.datastructure.list.DataStructureListFragment"
         android:label="fragment_data_structure_list"
         tools:layout="@layout/fragment_data_structure_list" >
         <action

@@ -1,4 +1,4 @@
-package com.ie.lenda
+package com.ie.lenda.datastructure.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,12 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ie.lenda.datastructure.list.DataStructureListAdapter
-import com.ie.lenda.datastructure.list.DataStructureListViewModel
+import com.ie.lenda.datastructure.list.DataStructureListFragmentDirections
+import com.ie.lenda.R
 
-/**
- * A simple [Fragment] subclass.
- */
 class DataStructureListFragment : Fragment() {
     private val dataStructureList = setOf(
         hashMapOf<String,Any>(
@@ -30,6 +27,7 @@ class DataStructureListFragment : Fragment() {
             )
         )
     )
+
     private lateinit var dataStructureListView:RecyclerView
     private lateinit var dataStructureListAdapter:DataStructureListAdapter
     private val viewModel by viewModels<DataStructureListViewModel>()
@@ -43,7 +41,11 @@ class DataStructureListFragment : Fragment() {
     }
 
     private fun navigateToDataStructure(name:String){
-        findNavController().navigate(DataStructureListFragmentDirections.actionHomeToDataStructureFragment(name))
+        findNavController().navigate(
+            DataStructureListFragmentDirections.actionHomeToDataStructureFragment(
+                name
+            )
+        )
     }
 
     private fun setupObserver(){
