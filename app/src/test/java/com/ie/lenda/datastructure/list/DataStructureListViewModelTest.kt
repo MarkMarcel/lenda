@@ -1,6 +1,7 @@
 package com.ie.lenda.datastructure.list
 
 
+import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -11,7 +12,9 @@ import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@Config(sdk = [Build.VERSION_CODES.O])
 @RunWith(AndroidJUnit4::class)
 class DataStructureListViewModelTest {
     @get:Rule

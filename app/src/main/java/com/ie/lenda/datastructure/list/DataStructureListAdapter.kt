@@ -22,7 +22,7 @@ class DataStructureListAdapter(
     class DataStructureListAdapterViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         val dataStructureNameTextView: TextView = itemView.findViewById(R.id.data_structure_group_name)
         val expandCollapseIcon: AppCompatImageView = itemView.findViewById(R.id.expand_collapse_icon)
-        val dataStructureChildListView:RecyclerView = itemView.findViewById(R.id.data_structure_list)
+        val dataStructureChildListView:RecyclerView = itemView.findViewById(R.id.data_structure_children)
         val clickArea:RelativeLayout = itemView.findViewById(R.id.click_area)
 
     }
