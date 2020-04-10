@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Lenda</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ds_children_map_key">dataStructures</string>
+    <string name="ds_name_map_key">name</string>
 </resources>

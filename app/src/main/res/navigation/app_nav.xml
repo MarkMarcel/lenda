@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_nav"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.ie.lenda.datastructure.list.DataStructureListFragment"
+        android:label="fragment_data_structure_list"
+        tools:layout="@layout/fragment_data_structure_list" >
+        <action
+            android:id="@+id/action_home_to_dataStructureFragment"
+            app:destination="@id/dataStructureFragment">
+            <argument
+                android:name="dataStructureName"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/dataStructureFragment"
+        android:name="com.ie.lenda.DataStructureFragment"
+        android:label="fragment_data_structure"
+        tools:layout="@layout/fragment_data_structure" />
+</navigation>
